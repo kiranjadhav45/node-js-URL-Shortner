@@ -2,17 +2,18 @@ const express = require("express")
 const {connectMongoDB} = require("./connection")
 const urlRoute = require("./routes/url")
 const URL = require("./models/url")
+require("dotenv").config();
 
 const app =express()
-const PORT = 8000
+const PORT = process.env.PORT
 
 // connection to mongoDB
-connectMongoDB("mongodb+srv://kiranjadhav4563:GAPoKjsgjzUTKFpG@cluster0.fffuvdd.mongodb.net/?retryWrites=true&w=majority").then(()=>console.log("connected to the mongoDB"))
+connectMongoDB(process.env.MONGODB_CONNECTION).then(()=>console.log("connected to the mongoDB"))
 
 //midleweres
 app.use(express.json())
 
-routes
+// routes
 app.use("/url" ,urlRoute)
 
 app.get("/:shortId",async(req,res)=>{
